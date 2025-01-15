@@ -17,12 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun SecondScreen(navigateToFirstScreen: () -> Unit) {
-    val name = remember { mutableStateOf("") }
+fun SecondScreen(name: String, navigateToFirstScreen: (String) -> Unit) {
+    val value = remember { mutableStateOf("") }
 
     Column(
         Modifier
@@ -32,12 +31,12 @@ fun SecondScreen(navigateToFirstScreen: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text("This is the Second Screen", fontSize = 24.sp)
+        Text("This is the $name Second Screen", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = name.value, onValueChange = { name.value = it })
+        OutlinedTextField(value = value.value, onValueChange = { value.value = it })
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            navigateToFirstScreen()
+            navigateToFirstScreen(name)
         }) {
             Text("Go to Third Screen")
         }
@@ -48,6 +47,6 @@ fun SecondScreen(navigateToFirstScreen: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun SecondPreview() {
-    SecondScreen({})
+    SecondScreen("Daniel", {})
 }
 
